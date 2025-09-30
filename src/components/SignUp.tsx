@@ -1,4 +1,5 @@
 'use client'
+import { FormDataPayload, registerUser } from "@/app/actions/register"
 import { useState } from "react"
 export default function SignUp() {
     const [name, setName] = useState("")
@@ -8,30 +9,24 @@ export default function SignUp() {
     const [dateOfBirth, setDateOfBirth] = useState("")
     const [isSuccess, setIsSuccess] = useState(false)
 
-    async function submitHandler(event) {
+    async function submitHandler(event: any) {
         event.preventDefault();
         console.log(name, email, password, dateOfBirth)
         try {
-            const formData = {
+            const formData: FormDataPayload = {
                 name: name,
                 email: email,
                 password: password,
                 dob: dateOfBirth
-
-
             }
-            const res = await fetch("/api/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
-
-            const data = await res.json();
-
-            console.log(565656, data);
+            
+            const res = await registerUser(formData);
 
 
-            if (data.status === 201) {
+            console.log(565656, res);
+
+
+            if (res.success) {
                 setIsSuccess(true)
                 setName("")
                 setEmail("")

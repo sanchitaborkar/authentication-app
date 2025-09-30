@@ -1,15 +1,26 @@
 'use client'
 
+import { loginUser } from "@/app/actions/login";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SignIn() {
 const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
+const router= useRouter()
 
-function submitHandler(event) {
+
+async function submitHandler(event: any) {
   event.preventDefault();
 
-    console.log(email,password)
+    const web = await loginUser(email,password);
+
+    if (web.success){
+        router.push("/");
+        localStorage.setItem("token", web.token || "")
+    }
+
+    console.log(web)
 }
     return (
         <div className="border border-gray-300 w-xl p-6 m-auto rounded-xl shadow-xl">
