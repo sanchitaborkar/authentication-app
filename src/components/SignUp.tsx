@@ -1,6 +1,6 @@
 'use client'
 import { FormDataPayload, registerUser } from "@/app/actions/register"
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 export default function SignUp() {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -9,7 +9,7 @@ export default function SignUp() {
     const [dateOfBirth, setDateOfBirth] = useState("")
     const [isSuccess, setIsSuccess] = useState(false)
 
-    async function submitHandler(event: any) {
+    async function submitHandler(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         console.log(name, email, password, dateOfBirth)
         try {

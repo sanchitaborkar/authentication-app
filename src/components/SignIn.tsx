@@ -2,7 +2,7 @@
 
 import { loginUser } from "@/app/actions/login";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 export default function SignIn() {
 const [email,setEmail]=useState("")
@@ -10,7 +10,7 @@ const [password,setPassword]=useState("")
 const router= useRouter()
 
 
-async function submitHandler(event: any) {
+async function submitHandler(event: FormEvent<HTMLFormElement>) {
   event.preventDefault();
 
     const web = await loginUser(email,password);
